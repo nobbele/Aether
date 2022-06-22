@@ -222,7 +222,14 @@ pub fn init<EP: EndpointSuper>() -> LoggerBuilder<EP> {
 
     LoggerBuilder {
         base_path: None,
-        fmt: |log| format!("{:?} [{:?}] {}", log.time, log.endpoint, log.text),
+        fmt: |log| {
+            format!(
+                "{} [{:?}] {}",
+                log.time.format("%T.%3f"),
+                log.endpoint,
+                log.text
+            )
+        },
         endpoints: HashMap::new(),
     }
 }

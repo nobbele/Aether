@@ -9,14 +9,6 @@ enum Endpoint {
 
 fn main() {
     let _keep = aether::init()
-        .format(|log| {
-            format!(
-                "{} [{:?}] {}",
-                log.time.format("%T.%3f"),
-                log.endpoint,
-                log.text
-            )
-        })
         .base_path("logs")
         .setup(Endpoint::Foo, |ep| ep.no_path())
         .setup(Endpoint::Bar, |ep| ep.path("output.log"))
