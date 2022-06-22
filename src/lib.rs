@@ -59,6 +59,7 @@ fn hash(obj: &impl EndpointSuper) -> EndpointHash {
 #[derive(Default)]
 struct Endpoint {
     file: Option<BufWriter<File>>,
+    silent: bool,
 }
 
 struct Logger {
@@ -73,8 +74,11 @@ impl Logger {
             .get_mut(&target)
             .expect("Attempted to use un-initialized endpoint");
 
-        if let Some(file) = &mut endpoint.file {
+        if !endpoint.silent {
             println!("{}", message);
+        }
+
+        if let Some(file) = &mut endpoint.file {
             use std::io::Write;
             writeln!(file, "{}", message).unwrap();
         }
@@ -192,7 +196,13 @@ fn setup_logger<EP: EndpointSuper>(builder: LoggerBuilder<EP>) {
             file
         });
 
-        endpoints.insert(hash, Endpoint { file });
+        endpoints.insert(
+            hash,
+            Endpoint {
+                file,
+                silent: ep_builder.silent,
+            },
+        );
     }
 
     let mut logger = LOGGER.lock().unwrap();
