@@ -1,0 +1,16 @@
+[package]
+name = "aether-log"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "aether"
+
+[features]
+default = ["archive"]
+archive = ["dep:zip"]
+
+[dependencies]
+lazy_static = "1.4.0"
+chrono = { version = "0.4.19", default-features = false, features = ["clock"] }
+zip = { version = "0.6.2", default-features = false, optional = true }
