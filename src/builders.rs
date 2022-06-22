@@ -54,7 +54,7 @@ impl<EP: EndpointSuper> LoggerBuilder<EP> {
         self.endpoints.insert(
             crate::hash(&endpoint),
             setup(EndpointBuilder {
-                path: Some(format!("{:?}", endpoint).into()),
+                path: None,
                 silent: false,
                 disabled: false,
             }),
