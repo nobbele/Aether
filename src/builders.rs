@@ -1,4 +1,7 @@
-use crate::{EndpointHash, EndpointSuper, KeepAlive, LogEntry};
+use crate::{
+    logger::{setup_logger, KeepAlive},
+    EndpointHash, EndpointSuper, LogEntry,
+};
 use std::{
     collections::HashMap,
     marker::PhantomData,
@@ -63,7 +66,7 @@ impl<EP: EndpointSuper> LoggerBuilder<EP> {
     }
 
     pub fn build(self) -> KeepAlive {
-        crate::setup_logger(self);
+        setup_logger(self);
         KeepAlive(PhantomData)
     }
 }
