@@ -2,6 +2,7 @@ use std::{fs::File, io::BufWriter};
 
 use crate::{LogEntry, ENDPOINT_TYPE, LOGGER};
 
+#[doc(hidden)]
 pub trait EndpointSuper: std::any::Any + std::fmt::Debug + std::marker::Send {}
 impl<T: std::any::Any + std::fmt::Debug + std::marker::Send + std::hash::Hash> EndpointSuper for T {}
 
