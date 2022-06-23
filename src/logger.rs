@@ -1,6 +1,10 @@
 use std::{collections::HashMap, fs::File, io::BufWriter, marker::PhantomData};
 
-use crate::{builders::LoggerBuilder, Endpoint, EndpointHash, EndpointSuper, LOGGER};
+use crate::{
+    builders::LoggerBuilder,
+    endpoint::{Endpoint, EndpointHash},
+    EndpointSuper, LOGGER,
+};
 
 pub struct Logger {
     pub(crate) fmt: Box<dyn std::any::Any + std::marker::Send + std::marker::Sync>,

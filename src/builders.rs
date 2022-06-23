@@ -1,6 +1,7 @@
 use crate::{
+    endpoint::{EndpointExt, EndpointHash},
     logger::{setup_logger, KeepAlive},
-    EndpointHash, EndpointSuper, LogEntry,
+    EndpointSuper, LogEntry,
 };
 use std::{
     collections::HashMap,
@@ -42,7 +43,7 @@ pub struct LoggerBuilder<EP: EndpointSuper> {
     pub(crate) endpoints: HashMap<EndpointHash, EndpointBuilder>,
 }
 
-impl<EP: EndpointSuper> LoggerBuilder<EP> {
+impl<EP: EndpointSuper + std::hash::Hash> LoggerBuilder<EP> {
     pub fn format(mut self, fmt: fn(LogEntry<EP>) -> String) -> Self {
         self.fmt = fmt;
         self
@@ -55,7 +56,7 @@ impl<EP: EndpointSuper> LoggerBuilder<EP> {
 
     pub fn setup(mut self, endpoint: EP, setup: fn(EndpointBuilder) -> EndpointBuilder) -> Self {
         self.endpoints.insert(
-            crate::hash(&endpoint),
+            endpoint.endpoint_hash(),
             setup(EndpointBuilder {
                 path: None,
                 silent: false,
