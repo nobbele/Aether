@@ -1,8 +1,12 @@
 use crate::{endpoint::EndpointExt, EndpointSuper, LOGGER};
 
+/// Log entry.
 pub struct LogEntry<'a, EP> {
+    /// The time the log was recorded. See [`chrono::DateTime`] for more details.
     pub time: chrono::DateTime<chrono::Utc>,
+    /// Specifies which endpoint this log was reported to.
     pub endpoint: &'a EP,
+    /// The message that was logged.
     pub text: &'a str,
 }
 

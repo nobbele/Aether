@@ -20,6 +20,7 @@ pub fn impl_slog(message: String) {
     logger.log(scope.endpoint_hash(), output);
 }
 
+/// Starts a log scope within the closure provided.
 pub fn scoped<EP: EndpointSuper + std::hash::Hash>(endpoint: EP, f: impl FnOnce()) {
     let mut scope_guard = SCOPE.lock().unwrap();
     let prev_scope = scope_guard.replace(Box::new(endpoint));

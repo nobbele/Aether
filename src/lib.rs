@@ -1,3 +1,6 @@
+//! Minimal logging library that uses explicit and configurable endpoints.
+#![warn(missing_docs)]
+
 use crate::logger::Logger;
 use std::{collections::HashMap, sync::Mutex};
 
@@ -18,6 +21,7 @@ lazy_static::lazy_static! {
     static ref LOGGER: Mutex<Option<Logger>> = Mutex::new(None);
 }
 
+/// Log to the endpoint that is currently in scope. Panics if there's no scope active.
 #[macro_export]
 macro_rules! slog {
     ($($arg:tt)*) => {
@@ -25,6 +29,7 @@ macro_rules! slog {
     };
 }
 
+/// Log to the specified endpoint.
 #[macro_export]
 macro_rules! log {
     ($target:expr, $($arg:tt)*) => {
@@ -32,6 +37,7 @@ macro_rules! log {
     };
 }
 
+/// Constructs a builder for the logger.
 pub fn init<EP: EndpointSuper>() -> LoggerBuilder<EP> {
     let mut guard = ENDPOINT_TYPE.lock().unwrap();
     if guard.replace(std::any::TypeId::of::<EP>()).is_some() {

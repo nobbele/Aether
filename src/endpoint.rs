@@ -2,9 +2,11 @@ use std::{fs::File, io::BufWriter};
 
 use crate::{LogEntry, ENDPOINT_TYPE, LOGGER};
 
-#[doc(hidden)]
+/// Shorthand for the individual trait requirements for endpoints.
+///
+/// Automatically implemented for any type implementing the individual traits.
 pub trait EndpointSuper: std::any::Any + std::fmt::Debug + std::marker::Send {}
-impl<T: std::any::Any + std::fmt::Debug + std::marker::Send + std::hash::Hash> EndpointSuper for T {}
+impl<T: std::any::Any + std::fmt::Debug + std::marker::Send> EndpointSuper for T {}
 
 pub(crate) trait EndpointExt: EndpointSuper {
     fn endpoint_hash(&self) -> EndpointHash;

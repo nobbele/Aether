@@ -29,6 +29,7 @@ impl Logger {
     }
 }
 
+/// Dropping this will also drop the current logger.
 pub struct KeepAlive(pub(crate) PhantomData<()>);
 
 impl Drop for KeepAlive {
