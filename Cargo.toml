@@ -6,6 +6,7 @@ edition = "2021"
 license = "MIT"
 keywords = ["log", "logging", "logger"]
 categories = ["development-tools::debugging"]
+repository = "https://github.com/nobbele/aether-log"
 
 [lib]
 name = "aether"
