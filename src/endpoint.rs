@@ -47,4 +47,5 @@ pub struct EndpointHash(u64);
 pub(crate) struct Endpoint {
     pub(crate) file: Option<BufWriter<File>>,
     pub(crate) silent: bool,
+    pub(crate) disabled: bool,
 }

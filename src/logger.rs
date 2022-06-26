@@ -18,6 +18,10 @@ impl Logger {
             .get_mut(&target)
             .expect("Attempted to use un-initialized endpoint");
 
+        if endpoint.disabled {
+            return;
+        }
+
         if !endpoint.silent {
             println!("{}", message);
         }
@@ -146,6 +150,7 @@ pub(crate) fn setup_logger<EP: EndpointSuper>(builder: LoggerBuilder<EP>) {
             Endpoint {
                 file,
                 silent: ep_builder.silent,
+                disabled: ep_builder.disabled,
             },
         );
     }
