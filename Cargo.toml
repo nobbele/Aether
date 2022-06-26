@@ -1,7 +1,11 @@
 [package]
 name = "aether-log"
+description = "Minimal logging library that uses explicit and configurable endpoints."
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
+keywords = ["log", "logging", "logger"]
+categories = ["development-tools::debugging"]
 
 [lib]
 name = "aether"
